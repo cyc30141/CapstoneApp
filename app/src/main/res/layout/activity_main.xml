@@ -1,0 +1,115 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.inhatc.capstone.MainActivity">
+
+    <EditText
+        android:id="@+id/identification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:hint="@string/login_id_text"
+        />
+
+    <EditText
+        android:id="@+id/passWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/login_pw_text"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:layout_below="@+id/identification"
+        android:layout_alignLeft="@+id/identification"
+        android:layout_alignStart="@+id/identification" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_button_text"
+        android:layout_below="@+id/passWord"
+        android:layout_alignLeft="@+id/passWord"
+        android:layout_alignStart="@+id/passWord" />
+
+    <Button
+        android:id="@+id/signUp_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/passWord"
+        android:layout_alignRight="@+id/passWord"
+        android:layout_below="@+id/passWord"
+        android:text="@string/signUp_button_text" />
+
+    <!--<TextView
+        android:id="@+id/tvId"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/userId"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:textColor="#000"
+                android:textColorHint="#c9c9c9"
+                android:hint="아이디"
+                android:textSize="23dp"/>
+            <EditText
+                android:id="@+id/userPwd"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:textColor="#000"
+                android:textColorHint="#c9c9c9"
+                android:hint="비밀번호"
+                android:textSize="23dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <Button
+                android:id="@+id/joinBtn"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:textColor="#000"
+                android:text="회원가입"/>
+            <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:textColor="#000"
+                android:text="로그인"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_above="@+id/tvId"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="33dp" />-->
+
+</RelativeLayout>

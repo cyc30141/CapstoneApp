@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">CAPSTONE</string>
+    <string name="login_id_text">ID</string>
+    <string name="login_pw_text">PW</string>
+    <string name="login_button_text">로그인</string>
+    <string name="action_settings">CAPSTONE</string>
+    <string name="login_fail_text">로그인 실패 ID와 PW를 확인해 주세요.</string>
+    <string name="login_succese_text">로그인 성공.</string>
+
+    <string name="signup_identification_text">아이디를 적어 주세요.</string>
+    <string name="signup_password_text">비밀번호를 적어 주세요.</string>
+    <string name="signup_name_text">이름을 적어 주세요.</string>
+    <string name="signup_phone_number_text">핸드폰 번호를 적어 주세요.</string>
+    <string name="signup_grade_text">등급을 넣어 주세요.</string>
+    <string name="signUp_button_text">회원가입</string>
+    <string name="signUp_cancle_button_text">취소</string>
+    <string name="signup_succese_text">회원가입 성공!</string>
+    <string name="signup_photo_text">사진을 넣어주세요!</string>
+    <string name="signup_fail_text">회원가입 실패.. ID가 중복되었습니다.</string>
+    <string name="signup_fail2_text">회원가입 실패! 빈칸을 채워주세요.</string>
+</resources>
