@@ -63,7 +63,7 @@ public class Main4Activity extends AppCompatActivity {
             for (int i = 0; i < jArr.length(); i++) {
                 json = jArr.getJSONObject(i);
                 Mydate = (String) json.getString("date");
-                //items.add(temp);test
+                //items.add(temp);
                 if(sdf.parse(Mydate).after(sdf.parse(getTime))){
                     items.add(Mydate + "                                                    대기");
                 }else{
