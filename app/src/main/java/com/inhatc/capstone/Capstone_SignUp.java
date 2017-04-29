@@ -66,6 +66,7 @@ public class Capstone_SignUp extends AppCompatActivity {
 
                 if (id.getText().length() > 0 || pw.getText().length() > 0 || name.getText().length() > 0 || phoneNumber.getText().length() > 0) {
                     String url = "http://albin7046.cafe24.com/putStudent.do";
+                    //String url = "http://172.30.1.15/inhatc/putStudent.do";
                     TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
                     String type = "signUp";
                     String signUpId = id.getText().toString();

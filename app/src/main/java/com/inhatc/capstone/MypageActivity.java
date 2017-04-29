@@ -63,7 +63,7 @@ public class MypageActivity extends AppCompatActivity {
                         tm =  (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
                         String  telPhoneNo = tm.getLine1Number();
                         String tmpStr = "";
-                        tmpStr +=  tm.getDeviceId();
+                        tmpStr +=  tm.getDeviceId().trim();
 
                         try {
                             String result  = new MainActivity.CustomTask().execute("mypage",telPhoneNo,tmpStr,items.get(checked)).get();

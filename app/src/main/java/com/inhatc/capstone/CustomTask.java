@@ -57,9 +57,9 @@ public class CustomTask extends AsyncTask<String, Void, String> {
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
             if("signIn".equals(params[1])){
-                sendMessage = "id=" + params[2] +"&pw=" + params[3];
-            }else if("signUp".equals(params[1])){
-                sendMessage = "id=" + params[2] +"&pw=" + params[3] +"&name=" + params[4] + "&phoneNumber=" + params[5] + "&grade=" + params[6] + "&device=" + params[7] + "&photo=" + params[8] ;
+                sendMessage = "id=" + params[2].trim() +"&pw=" + params[3].trim();
+            }else if("signUp".equals(params[1].trim())){
+                sendMessage = "id=" + params[2].trim() +"&pw=" + params[3].trim() +"&name=" + params[4].trim() + "&phoneNumber=" + params[5].trim() + "&grade=" + params[6].trim() + "&device=" + params[7].trim() + "&photo=" + params[8].trim() ;
             }
 
             bufferedWriter.write(

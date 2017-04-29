@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 if(passWord.getText().length() > 0 && identification.getText().length() > 0){
                     id = identification.getText().toString();
                     pw = passWord.getText().toString();
-                    //url = "http://172.30.1.7/inhatc/getStudent.do";
+                    //url = "http://172.30.1.15/inhatc/getStudent.do";
                     url = "http://albin7046.cafe24.com/getStudent.do";
                     type = "signIn";
                     Log.d("LoginInfo", "identification : " + id + " pw : " + pw);
@@ -295,22 +295,22 @@ public class MainActivity extends AppCompatActivity {
                 String urls="";
 
                 if(strings[0].equals("join")) {
-                    //urls = "http://172.30.1.7/inhatc/putStudent.do";
+                    //urls = "http://172.30.1.15/inhatc/putStudent.do";
                     urls = "http://albin7046.cafe24.com/putStudent.do";
-                    sendMsg = "id=" + strings[1] + "&pw=" + strings[2] + "&name=" + strings[3] + "&grade=" + strings[5] + "&phoneNumber=" + strings[5] + "&device=" + strings[6];
+                    sendMsg = "id=" + strings[1].trim() + "&pw=" + strings[2].trim() + "&name=" + strings[3].trim() + "&grade=" + strings[5].trim() + "&phoneNumber=" + strings[5].trim() + "&device=" + strings[6].trim();
                 }
                 else if(strings[0].equals("login")){
-                    //urls = "http://172.30.1.7/inhatc/login.do";
+                    //urls = "http://172.30.1.15/inhatc/login.do";
                     urls = "http://albin7046.cafe24.com/login.do";
-                    sendMsg = "phone=" + strings[1] + "&deviceid=" + strings[2] + "&major=" + strings[3];
+                    sendMsg = "phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&major=" + strings[3].trim();
                 }else if(strings[0].equals("attendance")){
-                    //urls = "http://172.30.1.7/inhatc/attendance.do";
+                    //urls = "http://172.30.1.15/inhatc/attendance.do";
                     urls = "http://albin7046.cafe24.com/attendance.do";
-                    sendMsg = "phone=" + strings[1] + "&deviceid=" + strings[2] + "&major=" + strings[3];
+                    sendMsg = "phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&major=" + strings[3].trim();
                 }else if(strings[0].equals("mypage")){
-                    //urls = "http://172.30.1.7/inhatc/getAllState.do";
+                    //urls = "http://172.30.1.15/inhatc/getAllState.do";
                     urls = "http://albin7046.cafe24.com/getAllState.do";
-                    sendMsg = "&phone=" + strings[1] + "&deviceid=" + strings[2] + "&subject_name=" + strings[3];
+                    sendMsg = "&phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&subject_name=" + strings[3].trim();
                 }else{
                     urls = "";
                     sendMsg = "phone=" + strings[1] + "&deviceid=" + strings[2] + "&major=" + strings[3];
@@ -417,10 +417,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         String tmpStr = "";
-        tmpStr =  tm.getDeviceId();
+        tmpStr =  tm.getDeviceId().trim();
+
 
         try {
-            String result  = new CustomTask().execute("attendance",telPhoneNo,tmpStr,String.valueOf(major)).get();
+            String result  = new CustomTask().execute("attendance",telPhoneNo,tmpStr.trim(),String.valueOf(major)).get();
 
             if(result.trim().equals("출석")){
                 myapp.setState2(true);
