@@ -417,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         String tmpStr = "";
-        tmpStr +=  Build.ID + "";
+        tmpStr =  tm.getDeviceId();
 
         try {
             String result  = new CustomTask().execute("attendance",telPhoneNo,tmpStr,String.valueOf(major)).get();
