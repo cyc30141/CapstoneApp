@@ -75,7 +75,8 @@ public class Capstone_SignUp extends AppCompatActivity {
                     String signUpPhoneNumber = tm.getLine1Number();
                     String signUpGrade = radioButton.getText().toString();
 
-                    deviceId = Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+                    //deviceId = Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+                    deviceId = tm.getDeviceId();
                     Log.d("TAG", "Device_ID : " + deviceId + " " + signUpPhoto);
 
 
