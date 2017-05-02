@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                             if( id.equals(studentDTO.getStudentID()) && pw.equals(studentDTO.getStudentPW()) ){
                                 Toast.makeText(getApplication(),R.string.login_succese_text,Toast.LENGTH_SHORT).show();
                                 //Todo: 로그인 성공시 인텐트로 값 넘기면서 화면 전환
-                                test();
+                                test2();
                             }else{
                                 Toast.makeText(getApplication(),R.string.login_fail_text,Toast.LENGTH_SHORT).show();
                                 identification.getText().clear();
@@ -295,20 +295,24 @@ public class MainActivity extends AppCompatActivity {
                 String urls="";
 
                 if(strings[0].equals("join")) {
-                    //urls = "http://172.30.1.15/inhatc/putStudent.do";
+                    //urls = "http://192.168.43.214/inhatc/putStudent.do";
                     urls = "http://albin7046.cafe24.com/putStudent.do";
                     sendMsg = "id=" + strings[1].trim() + "&pw=" + strings[2].trim() + "&name=" + strings[3].trim() + "&grade=" + strings[5].trim() + "&phoneNumber=" + strings[5].trim() + "&device=" + strings[6].trim();
                 }
                 else if(strings[0].equals("login")){
-                    //urls = "http://172.30.1.15/inhatc/login.do";
+                    //urls = "http://192.168.43.214/inhatc/login.do";
                     urls = "http://albin7046.cafe24.com/login.do";
                     sendMsg = "phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&major=" + strings[3].trim();
                 }else if(strings[0].equals("attendance")){
-                    //urls = "http://172.30.1.15/inhatc/attendance.do";
+                    //urls = "http://192.168.43.214/inhatc/attendance.do";
                     urls = "http://albin7046.cafe24.com/attendance.do";
                     sendMsg = "phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&major=" + strings[3].trim();
                 }else if(strings[0].equals("mypage")){
-                    //urls = "http://172.30.1.15/inhatc/getAllState.do";
+                    //urls = "http://192.168.43.214/inhatc/getMypage.do";
+                    urls = "http://albin7046.cafe24.com/getMypage.do";
+                    sendMsg = "&phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim();
+                }else if(strings[0].equals("mypage2")){
+                    //urls = "http://192.168.43.214/inhatc/getAllState.do";
                     urls = "http://albin7046.cafe24.com/getAllState.do";
                     sendMsg = "&phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&subject_name=" + strings[3].trim();
                 }else{
@@ -422,6 +426,37 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             String result  = new CustomTask().execute("attendance",telPhoneNo,tmpStr.trim(),String.valueOf(major)).get();
+
+            if(result.trim().equals("출석")){
+                myapp.setState2(true);
+            }else{
+                myapp.setState2(false);
+            }
+
+            Intent it = new Intent(this,MypageActivity.class);
+            it.putExtra("data",result);
+            startActivity(it);
+        }catch (Exception e) {}
+    }
+
+
+    public  void test2(){
+        //get
+        UUID uuid =  myapp.getUUIDD();
+        int major =  myapp.getMajor();
+        int minor =  myapp.getMinor();
+
+        TelephonyManager tm = null;
+        tm =  (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String  telPhoneNo = tm.getLine1Number();
+
+
+        String tmpStr = "";
+        tmpStr =  tm.getDeviceId().trim();
+
+
+        try {
+            String result  = new CustomTask().execute("mypage",telPhoneNo,tmpStr.trim()).get();
 
             if(result.trim().equals("출석")){
                 myapp.setState2(true);

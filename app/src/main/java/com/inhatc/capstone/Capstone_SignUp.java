@@ -73,11 +73,11 @@ public class Capstone_SignUp extends AppCompatActivity {
                     String signUppw = pw.getText().toString();
                     String signUpName = name.getText().toString();
                     String signUpPhoto = photo.getText().toString();
-                    String signUpPhoneNumber = tm.getLine1Number();
+                    String signUpPhoneNumber = tm.getLine1Number().trim();
                     String signUpGrade = radioButton.getText().toString();
 
                     //deviceId = Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-                    deviceId = tm.getDeviceId();
+                    deviceId = tm.getDeviceId().trim();
                     Log.d("TAG", "Device_ID : " + deviceId + " " + signUpPhoto);
 
 

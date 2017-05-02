@@ -66,7 +66,7 @@ public class MypageActivity extends AppCompatActivity {
                         tmpStr +=  tm.getDeviceId().trim();
 
                         try {
-                            String result  = new MainActivity.CustomTask().execute("mypage",telPhoneNo,tmpStr,items.get(checked)).get();
+                            String result  = new MainActivity.CustomTask().execute("mypage2",telPhoneNo,tmpStr,items.get(checked)).get();
 
                             Intent it = new Intent(MypageActivity.this,Main4Activity.class);
                             it.putExtra("data",result);
@@ -167,13 +167,13 @@ public class MypageActivity extends AppCompatActivity {
 
             Log.i("데이터5", "임.");
             json3 = jArr6.getJSONObject(i);
-            if (json3.getString("state").equals("true")) {
+            if (json3.getString("state").trim().equals("1")) {
                 state = "출석";
             }else if(json3.getString("state").equals("결석")){
                 state = "결석";
             }
 
-            if (sdf.parse(json2.getString("st")).after(sdf.parse(getTime)) == false) {
+            if (sdf.parse(json2.getString("st")).after(sdf.parse(getTime)) == true) {
                 state = "대기";
             }
 
