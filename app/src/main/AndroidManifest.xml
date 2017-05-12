@@ -24,10 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main2Activity" />
         <activity android:name=".MypageActivity" />
-        <activity android:name=".Main4Activity" />
-        <activity android:name=".JoinActivity" />
+        <activity android:name=".MyState" />
         <activity android:name=".Capstone_SignUp" />
         <activity android:name=".MainActivity"></activity>
     </application>

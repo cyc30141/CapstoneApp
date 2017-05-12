@@ -2,7 +2,6 @@ package com.inhatc.capstone;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -68,7 +67,7 @@ public class MypageActivity extends AppCompatActivity {
                         try {
                             String result  = new MainActivity.CustomTask().execute("mypage2",telPhoneNo,tmpStr,items.get(checked)).get();
 
-                            Intent it = new Intent(MypageActivity.this,Main4Activity.class);
+                            Intent it = new Intent(MypageActivity.this,MyState.class);
                             it.putExtra("data",result);
                             startActivity(it);
 
@@ -177,7 +176,7 @@ public class MypageActivity extends AppCompatActivity {
                 state = "대기";
             }
 
-            items2.add((String) json2.getString("lecture")+" "+(String) json2.getString("st")+" "+(String) json2.getString("en") + " " +state);
+            items2.add((String) json2.getString("lecture")+" "+(String) json2.getString("st")+" "+(String) json2.getString("en") + " " +state.trim());
             adapter2.notifyDataSetChanged();
         }
 
