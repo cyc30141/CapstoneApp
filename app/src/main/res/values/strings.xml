@@ -19,5 +19,5 @@
     <string name="signup_fail_text">회원가입 실패.. ID가 중복되었습니다.</string>
     <string name="signup_fail2_text">회원가입 실패! 빈칸을 채워주세요.</string>
 
-    <string name="url_text">192.168.43.26/</string>
+
 </resources>
