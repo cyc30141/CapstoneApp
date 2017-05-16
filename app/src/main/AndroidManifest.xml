@@ -27,7 +27,9 @@
         <activity android:name=".MypageActivity" />
         <activity android:name=".MyState" />
         <activity android:name=".Capstone_SignUp" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".TeacherMyPage" />
+        <activity android:name=".CoursePage"></activity>
     </application>
 
 </manifest>
