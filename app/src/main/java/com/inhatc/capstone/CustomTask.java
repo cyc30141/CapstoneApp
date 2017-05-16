@@ -49,7 +49,7 @@ public class CustomTask extends AsyncTask<String, Void, String> {
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
 
-            Log.d("TAG" , "params check : " + params[0] + " " +params[1] + " " + params[2]);
+            Log.d("TAG" , "params check : " + params[0] + " " +params[1]);
 
             httpURLConnection.setConnectTimeout(100);
             System.out.println(httpURLConnection.toString());
@@ -60,6 +60,12 @@ public class CustomTask extends AsyncTask<String, Void, String> {
                 sendMessage = "id=" + params[2].trim() +"&pw=" + params[3].trim();
             }else if("signUp".equals(params[1].trim())){
                 sendMessage = "id=" + params[2].trim() +"&pw=" + params[3].trim() +"&name=" + params[4].trim() + "&phoneNumber=" + params[5].trim() + "&grade=" + params[6].trim() + "&device=" + params[7].trim() + "&photo=" + params[8].trim() ;
+            }else if("getTeacherInfo".equals(params[1].trim())){
+                Log.d("getTeacherInfo",params[2] + params[3]);
+                sendMessage = "id=" + params[2].trim()+"&pw=" + params[3].trim();
+            }else if("getCourseInfo".equals(params[1].trim())){
+                Log.d("getCourseInfo",params[2]);
+                sendMessage = "subjectName=" + params[2].trim();
             }
 
             bufferedWriter.write(

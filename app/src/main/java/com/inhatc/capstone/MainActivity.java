@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 if(passWord.getText().length() > 0 && identification.getText().length() > 0){
                     id = identification.getText().toString();
                     pw = passWord.getText().toString();
-                    url = "http://"+R.string.url_text+"inhatc/getStudent.do";
+                    url = "http://192.168.43.26:8080/inhatc/getStudent.do";
                     //url = "http://albin7046.cafe24.com/getStudent.do";
                     type = "signIn";
                     Log.d("LoginInfo", "identification : " + id + " pw : " + pw);
@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                             try{
                                 JSONObject jsonObject = new JSONObject(output);
                                 JSONObject transferJson =  jsonObject.getJSONObject("studentInfo");
+
                                 studentDTO = new StudentDTO();
                                 studentDTO.setStudentID(transferJson.getString("student_id"));
                                 studentDTO.setStudentPW(transferJson.getString("student_pw"));
@@ -210,10 +211,12 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             Log.d("TAG" , "capstone_login_output : " + studentDTO.toString());
-                            if( id.equals(studentDTO.getStudentID()) && pw.equals(studentDTO.getStudentPW()) ){
+                            if( id.equals(studentDTO.getStudentID()) && pw.equals(studentDTO.getStudentPW()) && "1".equals(studentDTO.getGrade()) ){
                                 Toast.makeText(getApplication(),R.string.login_succese_text,Toast.LENGTH_SHORT).show();
-                                //Todo: 로그인 성공시 인텐트로 값 넘기면서 화면 전환
                                 test2();
+                            }else if( id.equals(studentDTO.getStudentID()) && pw.equals(studentDTO.getStudentPW()) && "0".equals(studentDTO.getGrade()) ){
+                                Toast.makeText(getApplication(),R.string.login_succese_text,Toast.LENGTH_SHORT).show();
+                                move();
                             }else{
                                 Toast.makeText(getApplication(),R.string.login_fail_text,Toast.LENGTH_SHORT).show();
                                 identification.getText().clear();
@@ -233,6 +236,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplication(),R.string.login_fail_text,Toast.LENGTH_SHORT).show();
                 }
             }
+
+
         }); // 로그인버튼 끝
 
         (findViewById(R.id.signUp_button)).setOnClickListener(new View.OnClickListener() {
@@ -295,24 +300,24 @@ public class MainActivity extends AppCompatActivity {
                 String urls="";
 
                 if(strings[0].equals("join")) {
-                    urls = "http://"+R.string.url_text+"inhatc/putStudent.do";
+                    urls = "http://192.168.43.26:8080/inhatc/putStudent.do";
                     //urls = "http://albin7046.cafe24.com/putStudent.do";
                     sendMsg = "id=" + strings[1].trim() + "&pw=" + strings[2].trim() + "&name=" + strings[3].trim() + "&grade=" + strings[5].trim() + "&phoneNumber=" + strings[5].trim() + "&device=" + strings[6].trim();
                 }
                 else if(strings[0].equals("login")){
-                    urls = "http://"+R.string.url_text+"inhatc/login.do";
+                    urls = "http://192.168.43.26:8080/inhatc/login.do";
                     //urls = "http://albin7046.cafe24.com/login.do";
                     sendMsg = "phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&major=" + strings[3].trim();
                 }else if(strings[0].equals("attendance")){
-                    urls = "http://"+R.string.url_text+"inhatc/attendance.do";
+                    urls = "http://192.168.43.26:8080/inhatc/attendance.do";
                     //urls = "http://albin7046.cafe24.com/attendance.do";
                     sendMsg = "phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&major=" + strings[3].trim();
                 }else if(strings[0].equals("mypage")){
-                    urls = "http://"+R.string.url_text+"inhatc/getMypage.do";
+                    urls = "http://192.168.43.26:8080/inhatc/getMypage.do";
                     //urls = "http://albin7046.cafe24.com/getMypage.do";
                     sendMsg = "&phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim();
                 }else if(strings[0].equals("mypage2")){
-                    urls = "http://"+R.string.url_text+"inhatc/getAllState.do";
+                    urls = "http://192.168.43.26:8080/inhatc/getAllState.do";
                     //urls = "http://albin7046.cafe24.com/getAllState.do";
                     sendMsg = "&phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&subject_name=" + strings[3].trim();
                 }else{
@@ -468,6 +473,15 @@ public class MainActivity extends AppCompatActivity {
             it.putExtra("data",result);
             startActivity(it);
         }catch (Exception e) {}
+    }
+
+    private void move() {
+
+        Intent intent = new Intent(this,TeacherMyPage.class);
+        intent.putExtra("data1",studentDTO.getStudentID());
+        intent.putExtra("data2",studentDTO.getStudentPW());
+        startActivity(intent);
+
     }
 
 }
