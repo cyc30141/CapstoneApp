@@ -46,9 +46,10 @@ public class TeacherMyPage extends AppCompatActivity {
         new CustomTask(new CustomTask.AsyncResponse() {
             @Override
             public void processFinish(String output) {
-            Log.d("CustomTask " , "start" + output);
+                Log.d("CustomTask " , "start");
 
                 if(output != null){
+                    Log.d("CustomTask " , "output!=null : " + output);
                     arrayList = new ArrayList<String>();
                     try {
                         JSONObject jsonObject = new JSONObject(output.toString());
@@ -60,6 +61,7 @@ public class TeacherMyPage extends AppCompatActivity {
                             CourseListDTO courseListDTO = new CourseListDTO();
                             JSONObject transferJson = jsonObject.getJSONObject(String.valueOf(i));
 
+                            courseListDTO.setSubjectID(transferJson.getString("SUBJECT_ID"));
                             courseListDTO.setStudentID(transferJson.getString("STUDENT_ID"));
                             courseListDTO.setdATE(transferJson.getString("DATE"));
                             courseListDTO.setStudentName(transferJson.getString("STUDENT_NAME"));
@@ -74,8 +76,9 @@ public class TeacherMyPage extends AppCompatActivity {
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Intent intent1 = new Intent(getApplicationContext(),CoursePage.class);
-                                intent1.putExtra("data",list.get(i).getSubjectName());
+                                Intent intent1 = new Intent(getApplicationContext(),TeacherWeekPage.class);
+                                intent1.putExtra("data",list.get(i).getSubjectID());
+                                Log.d("subjectId", list.get(i).getSubjectID());
                                 startActivity(intent1);
                             }
                         });

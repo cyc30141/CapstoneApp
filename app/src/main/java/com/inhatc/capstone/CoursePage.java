@@ -12,7 +12,7 @@ import java.util.List;
 public class CoursePage extends AppCompatActivity {
 
     String url = null;
-    String subjectName = null;
+    String subjectID = null;
     String teacherpw = null;
     String type=null;
     List<String> arrayList;
@@ -26,10 +26,10 @@ public class CoursePage extends AppCompatActivity {
         url = "http://192.168.43.26:8080/inhatc/getCourseInfo.do";
 
         Intent intent = getIntent();
-        subjectName= intent.getStringExtra("data");
+        subjectID= intent.getStringExtra("data");
         type = "getCourseInfo";
 
-        Log.d("intent test " , subjectName);
+        Log.d("intent test " , subjectID);
         new CustomTask(new CustomTask.AsyncResponse() {
             @Override
             public void processFinish(String output) {
@@ -39,7 +39,7 @@ public class CoursePage extends AppCompatActivity {
 
 
             }
-        }).execute(url,type,subjectName);
+        }).execute(url,type,subjectID);
 
     }
 }
