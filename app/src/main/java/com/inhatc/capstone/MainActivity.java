@@ -37,6 +37,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 if(passWord.getText().length() > 0 && identification.getText().length() > 0){
                     id = identification.getText().toString();
                     pw = passWord.getText().toString();
-                    url = "http://"+R.string.url_text+"inhatc/getStudent.do";
+                    url = "http://172.30.1.2/inhatc/getStudent.do";
                     //url = "http://albin7046.cafe24.com/getStudent.do";
                     type = "signIn";
                     Log.d("LoginInfo", "identification : " + id + " pw : " + pw);
@@ -295,24 +296,24 @@ public class MainActivity extends AppCompatActivity {
                 String urls="";
 
                 if(strings[0].equals("join")) {
-                    urls = "http://"+R.string.url_text+"inhatc/putStudent.do";
+                    urls = "http://172.30.1.2/inhatc/putStudent.do";
                     //urls = "http://albin7046.cafe24.com/putStudent.do";
                     sendMsg = "id=" + strings[1].trim() + "&pw=" + strings[2].trim() + "&name=" + strings[3].trim() + "&grade=" + strings[5].trim() + "&phoneNumber=" + strings[5].trim() + "&device=" + strings[6].trim();
                 }
                 else if(strings[0].equals("login")){
-                    urls = "http://"+R.string.url_text+"inhatc/login.do";
+                    urls = "http://172.30.1.2/inhatc/login.do";
                     //urls = "http://albin7046.cafe24.com/login.do";
                     sendMsg = "phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&major=" + strings[3].trim();
                 }else if(strings[0].equals("attendance")){
-                    urls = "http://"+R.string.url_text+"inhatc/attendance.do";
+                    urls = "http://172.30.1.2/inhatc/attendance.do";
                     //urls = "http://albin7046.cafe24.com/attendance.do";
                     sendMsg = "phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&major=" + strings[3].trim();
                 }else if(strings[0].equals("mypage")){
-                    urls = "http://"+R.string.url_text+"inhatc/getMypage.do";
+                    urls = "http://172.30.1.2/inhatc/getMypage.do";
                     //urls = "http://albin7046.cafe24.com/getMypage.do";
                     sendMsg = "&phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim();
                 }else if(strings[0].equals("mypage2")){
-                    urls = "http://"+R.string.url_text+"inhatc/getAllState.do";
+                    urls = "http://172.30.1.2/inhatc/getAllState.do";
                     //urls = "http://albin7046.cafe24.com/getAllState.do";
                     sendMsg = "&phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&subject_name=" + strings[3].trim();
                 }else{
@@ -433,7 +434,24 @@ public class MainActivity extends AppCompatActivity {
                 myapp.setState2(false);
             }
 
-            Intent it = new Intent(this,MypageActivity.class);
+            /*String Alecture="";
+            String Tlecture="";
+            String TlectureState="";*/
+            String status="";
+
+            StringTokenizer st = new StringTokenizer(result.trim(), "$" );
+            status = st.nextToken();
+            /*while( st.hasMoreTokens() ){
+                status = st.nextToken();
+                Alecture = st.nextToken();
+                Tlecture = st.nextToken();
+                TlectureState = st.nextToken();
+            }*/
+
+            //result = Alecture + "$" + Tlecture + "$" + TlectureState;
+
+            //Intent it = new Intent(this,MypageActivity.class);
+            Intent it = new Intent(this,Attendance_result.class);
             it.putExtra("data",result);
             startActivity(it);
         }catch (Exception e) {}

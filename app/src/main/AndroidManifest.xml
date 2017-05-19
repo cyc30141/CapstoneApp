@@ -29,7 +29,8 @@
         <activity android:name=".Capstone_SignUp" />
         <activity android:name=".MainActivity" />
         <activity android:name=".TeacherMyPage" />
-        <activity android:name=".CoursePage"></activity>
+        <activity android:name=".CoursePage" />
+        <activity android:name=".Attendance_result"></activity>
     </application>
 
 </manifest>

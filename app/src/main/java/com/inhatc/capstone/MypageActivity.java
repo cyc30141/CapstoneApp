@@ -101,6 +101,7 @@ public class MypageActivity extends AppCompatActivity {
 
         StringTokenizer st = new StringTokenizer(result.trim(), "$" );
         while( st.hasMoreTokens() ){
+            st.nextToken();
             Alecture = st.nextToken();
             Tlecture = st.nextToken();
             TlectureState = st.nextToken();
