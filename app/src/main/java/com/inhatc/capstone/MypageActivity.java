@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -38,7 +39,7 @@ public class MypageActivity extends AppCompatActivity {
         final ArrayList<String> items = new ArrayList<String>() ;
         final ArrayList<String> items2 = new ArrayList<String>() ;
         // ArrayAdapter 생성. 아이템 View를 선택(single choice)가능하도록 만듦.
-        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, items) ;
+        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items) ;
         final ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items2) ;
 
         // listview 생성 및 adapter 지정.
@@ -47,42 +48,99 @@ public class MypageActivity extends AppCompatActivity {
         final ListView listview2 = (ListView) findViewById(R.id.listview2) ;
         listview2.setAdapter(adapter2) ;
 
-        // modify button에 대한 이벤트 처리.
-        Button modifyButton = (Button)findViewById(R.id.modify) ;
-        modifyButton.setOnClickListener(new Button.OnClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                try{
+                TelephonyManager tm = null;
+                tm =  (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                String  telPhoneNo = tm.getLine1Number();
+                String tmpStr = "";
+                tmpStr +=  tm.getDeviceId().trim();
+                String result  = new MainActivity.CustomTask().execute("mypage2",telPhoneNo,tmpStr,items.get(i)).get();
+
+                Intent it = new Intent(MypageActivity.this,MyState.class);
+                it.putExtra("data",result);
+                startActivity(it);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+
+        Button demoButton1 = (Button)findViewById(R.id.demo_play1) ;
+        demoButton1.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                int count, checked ;
-                count = adapter.getCount() ;
 
-                if (count > 0) {
-                    // 현재 선택된 아이템의 position 획득.
-                    checked = listview.getCheckedItemPosition();
-                    if (checked > -1 && checked < count) {
-                        TelephonyManager tm = null;
-                        tm =  (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-                        String  telPhoneNo = tm.getLine1Number();
-                        String tmpStr = "";
-                        tmpStr +=  tm.getDeviceId().trim();
-
-                        try {
-                            String result  = new MainActivity.CustomTask().execute("mypage2",telPhoneNo,tmpStr,items.get(checked)).get();
-
-                            Intent it = new Intent(MypageActivity.this,MyState.class);
-                            it.putExtra("data",result);
-                            startActivity(it);
+                try {
+                    TelephonyManager tm = null;
+                    tm =  (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                    String  telPhoneNo = tm.getLine1Number();
 
 
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        }
-                        // listview 갱신
-                        adapter.notifyDataSetChanged();
-                    }
+                    String tmpStr = "";
+                    tmpStr =  tm.getDeviceId().trim();
+
+                    String result = new MainActivity.CustomTask().execute("demo1", telPhoneNo, tmpStr).get();
+
+                    Intent it = new Intent(MypageActivity.this, MypageActivity.class);
+                    it.putExtra("data", result);
+                    startActivity(it);
+
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
                 }
             }
         }) ;
+
+
+        Button demoButton2 = (Button)findViewById(R.id.demo_play2) ;
+        demoButton2.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    TelephonyManager tm = null;
+                    tm =  (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                    String  telPhoneNo = tm.getLine1Number();
+
+
+                    String tmpStr = "";
+                    tmpStr =  tm.getDeviceId().trim();
+
+                    String result = new MainActivity.CustomTask().execute("demo2", telPhoneNo, tmpStr).get();
+
+                    Intent it = new Intent(MypageActivity.this, MypageActivity.class);
+                    it.putExtra("data", result);
+                    startActivity(it);
+
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }) ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -126,14 +184,14 @@ public class MypageActivity extends AppCompatActivity {
             json = jArr.getJSONObject(i);
             temp = (String) json.getString("date");
             Log.i("데이터1", "임.");
-            date.append(temp+" \n");
+            date.append(temp+"");
         }
 
         for (int i = 0; i < jArr2.length(); i++) {
             json = jArr2.getJSONObject(i);
             temp = (String) json.getString("id");
             Log.i("데이터2", "임.");
-            name.append(temp+"  ");
+            name.append(temp+"  \n");
         }
 
         for (int i = 0; i < jArr3.length(); i++) {

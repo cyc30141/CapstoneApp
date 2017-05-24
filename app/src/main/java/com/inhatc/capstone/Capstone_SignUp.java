@@ -91,8 +91,8 @@ public class Capstone_SignUp extends AppCompatActivity {
                                     JSONObject jsonObject = new JSONObject(output.toString());
                                     transferData = jsonObject.getString("check");
                                     Log.d("TAG", "transferdata : " + transferData);
-                                }
-                            } catch (JSONException e) {
+                            }
+                        } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 

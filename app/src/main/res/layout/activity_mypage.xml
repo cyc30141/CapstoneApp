@@ -10,38 +10,47 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_margin="5dp"
         android:weightSum="10">
+
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_weight="1.5"
+            android:background="@drawable/back"
+            android:layout_margin="2dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
                 android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:textSize="15dp" />
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/nameColor"
+                android:shadowColor="#FF464646"
+                android:shadowDx="1.0"
+                android:shadowDy="1.0"
+                android:shadowRadius="1.0"
+                android:textSize="30dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:layout_weight="3"
+            android:layout_weight="2"
+            android:background="@drawable/back"
+            android:layout_margin="2dp"
             android:orientation="vertical">
 
 
@@ -76,16 +85,33 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_weight="6"
+            android:background="@drawable/back"
+            android:layout_margin="2dp"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/textline"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textStyle="bold"
-                android:text="내 수강 과목"
-                android:textSize="20dp" />
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/check1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:text="내 수강 과목"
+                    android:gravity="center"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
 
             <!--<TextView
                 android:id="@+id/allL"
@@ -107,11 +133,22 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/modify"
+                    android:id="@+id/demo_play1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="내 출결 상태 조회" />
+                    android:layout_alignEnd="@+id/passWord"
+                    android:layout_alignRight="@+id/passWord"
+                    android:layout_below="@+id/passWord"
+                    android:text="@string/demo_play1" />
+
+                <Button
+                    android:id="@+id/demo_play2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/passWord"
+                    android:layout_alignRight="@+id/passWord"
+                    android:layout_below="@+id/passWord"
+                    android:text="@string/demo_play2" />
 
             </LinearLayout>
 
