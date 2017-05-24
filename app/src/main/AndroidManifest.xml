@@ -30,7 +30,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".TeacherMyPage" />
         <activity android:name=".CoursePage" />
-        <activity android:name=".Attendance_result"></activity>
+        <activity android:name=".Attendance_result" />
+        <activity android:name=".TeacherWeekPage"></activity>
     </application>
 
 </manifest>

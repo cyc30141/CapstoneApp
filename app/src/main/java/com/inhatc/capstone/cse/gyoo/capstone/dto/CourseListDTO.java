@@ -10,6 +10,15 @@ public class CourseListDTO {
     private String studentName;
     private String dATE;
     private String subjectName;
+    private String subjectID;
+
+    public String getSubjectID() {
+        return subjectID;
+    }
+
+    public void setSubjectID(String subjectID) {
+        this.subjectID = subjectID;
+    }
 
     public String getStudentID() {
         return studentID;
@@ -50,6 +59,7 @@ public class CourseListDTO {
                 ", studentName='" + studentName + '\'' +
                 ", dATE='" + dATE + '\'' +
                 ", subjectName='" + subjectName + '\'' +
+                ", subjectID='" + subjectID + '\'' +
                 '}';
     }
 }

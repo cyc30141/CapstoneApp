@@ -211,11 +211,17 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             Log.d("TAG" , "capstone_login_output : " + studentDTO.toString());
-                            if( id.equals(studentDTO.getStudentID()) && pw.equals(studentDTO.getStudentPW()) ){
+                            if( id.equals(studentDTO.getStudentID()) && pw.equals(studentDTO.getStudentPW()) && "1".equals(studentDTO.getGrade()) ){
                                 Toast.makeText(getApplication(),R.string.login_succese_text,Toast.LENGTH_SHORT).show();
-                                //Todo: 로그인 성공시 인텐트로 값 넘기면서 화면 전환
                                 test2();
-                            }else{
+                            }else if(id.equals(studentDTO.getStudentID()) && pw.equals(studentDTO.getStudentPW()) && "0".equals(studentDTO.getGrade())){
+                                Toast.makeText(getApplication(),R.string.login_succese_text,Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplication(),TeacherMyPage.class);
+                                intent.putExtra("data1",studentDTO.getStudentID());
+                                intent.putExtra("data2",studentDTO.getStudentPW());
+                                startActivity(intent);
+                            }
+                            else{
                                 Toast.makeText(getApplication(),R.string.login_fail_text,Toast.LENGTH_SHORT).show();
                                 identification.getText().clear();
                                 passWord.getText().clear();
@@ -333,8 +339,6 @@ public class MainActivity extends AppCompatActivity {
                 String str;
                 URL url = new URL(urls);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(30000);
-                conn.setConnectTimeout(30000);
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);

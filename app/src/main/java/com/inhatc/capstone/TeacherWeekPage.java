@@ -14,89 +14,78 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.inhatc.capstone.cse.gyoo.capstone.dto.CourseListDTO;
+import com.inhatc.capstone.cse.gyoo.capstone.dto.CourseWeekDTO;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherMyPage extends AppCompatActivity {
+public class TeacherWeekPage extends AppCompatActivity {
 
-    String url = null;
-    String teacherId = null;
-    String teacherpw = null;
-    String type=null;
-    List<String> arrayList;
     ListView listView;
+    List<CourseWeekDTO> list;
+    String url;
+    String type=null;
+    String subjectID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_my_page);
+        setContentView(R.layout.activity_teacher_week_page);
 
-        url = "http://192.168.43.26:8080/inhatc/getTeacherInfo.do";
+        url = "http://192.168.43.26:8080/inhatc/getTeacherCourseWeek.do";
 
-        Intent intent = getIntent();
-        teacherId = intent.getStringExtra("data1");
-        teacherpw = intent.getStringExtra("data2");
-        type = "getTeacherInfo";
-        Log.d("Intent Test  " , teacherId +" " + teacherpw);
+        final Intent intent = getIntent();
+        subjectID= intent.getStringExtra("data");
+        type = "getTeacherCourseWeek";
 
-        listView = (ListView)findViewById(R.id.TeacherListView);
+        listView = (ListView)findViewById(R.id.TeacherWeekListView);
 
         new CustomTask(new CustomTask.AsyncResponse() {
             @Override
             public void processFinish(String output) {
-                Log.d("CustomTask " , "start");
-
                 if(output != null){
                     Log.d("CustomTask " , "output!=null : " + output);
-                    arrayList = new ArrayList<String>();
                     try {
-                        JSONObject jsonObject = new JSONObject(output.toString());
-                        Log.d("JsonObject Test ","");
-                        Integer size = Integer.parseInt(jsonObject.getString("size"));
+                        JSONObject jsonObject = new JSONObject(output);
+                        list = new ArrayList();
+                        int size = jsonObject.getInt("size");
+                        Log.d("size" , String.valueOf(size));
 
-                        final List<CourseListDTO> list = new ArrayList();
-                        for (int i = 0; i< size; i++){
-                            CourseListDTO courseListDTO = new CourseListDTO();
-                            JSONObject transferJson = jsonObject.getJSONObject(String.valueOf(i));
+                        for (int i = 0; i < size; i++){
+                            CourseWeekDTO courseWeekDTO = new CourseWeekDTO();
+                            courseWeekDTO.setWeek(i);
+                            courseWeekDTO.setDate(jsonObject.getString(String.valueOf(i)));
 
-                            courseListDTO.setSubjectID(transferJson.getString("SUBJECT_ID"));
-                            courseListDTO.setStudentID(transferJson.getString("STUDENT_ID"));
-                            courseListDTO.setdATE(transferJson.getString("DATE"));
-                            courseListDTO.setStudentName(transferJson.getString("STUDENT_NAME"));
-                            courseListDTO.setSubjectName(transferJson.getString("SUBJECT_NAME"));
-
-                            Log.d("courseListDTO " , courseListDTO.toString() );
-                            list.add(courseListDTO);
+                            list.add(courseWeekDTO);
                         }
-
+                        Log.d("list",list.get(13).getDate());
                         listView.setAdapter(new ListViewAdapter(list));
 
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Intent intent1 = new Intent(getApplicationContext(),TeacherWeekPage.class);
-                                intent1.putExtra("data",list.get(i).getSubjectID());
-                                Log.d("subjectId", list.get(i).getSubjectID());
+                                Intent intent1 = new Intent(getApplicationContext(),CoursePage.class);
+                                intent1.putExtra("week",list.get(i).getWeek());
+                                intent1.putExtra("subjectID", subjectID);
                                 startActivity(intent1);
                             }
                         });
 
-                        //arrayList.add(jsonObject.getString)
                     }catch (Exception e){
                         e.printStackTrace();
                     }
                 }
-
             }
-        }).execute(url,type,teacherId,teacherpw);
+        }).execute(url,type,subjectID);
+
     }
 
     class ListViewAdapter extends BaseAdapter {
 
         // 아이템 데이터 리스트.
-        private List<CourseListDTO> listViewItemList = new ArrayList() ;
+        private List<CourseWeekDTO> listViewItemList = new ArrayList() ;
 
         public ListViewAdapter(List listViewItemList) {
             this.listViewItemList = listViewItemList;
@@ -121,13 +110,15 @@ public class TeacherMyPage extends AppCompatActivity {
 
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.activity_teacher_list_view_item, parent, false);
+                convertView = inflater.inflate(R.layout.activity_teacher_week_listitem, parent, false);
             }
             // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
 
 
-            TextView nameTextView = (TextView) convertView.findViewById(R.id.teacherListViewText) ;
-            nameTextView.setText(listViewItemList.get(position).getSubjectName());
+            TextView week = (TextView) convertView.findViewById(R.id.TeacherWeek) ;
+            TextView date = (TextView) convertView.findViewById(R.id.TeacherWeekDate);
+            week.setText((listViewItemList.get(position).getWeek()+1) + " 주차");
+            date.setText(listViewItemList.get(position).getDate());
 
             return convertView;
         }

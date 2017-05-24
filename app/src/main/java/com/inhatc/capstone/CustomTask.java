@@ -65,7 +65,10 @@ public class CustomTask extends AsyncTask<String, Void, String> {
                 sendMessage = "id=" + params[2].trim()+"&pw=" + params[3].trim();
             }else if("getCourseInfo".equals(params[1].trim())){
                 Log.d("getCourseInfo",params[2]);
-                sendMessage = "subjectName=" + params[2].trim();
+                sendMessage = "subjectID=" + params[2].trim() +"&week=" + params[3].trim();
+            }else if("getTeacherCourseWeek".equals(params[1].trim())){
+                Log.d("getTeacherCourseWeek",params[2]);
+                sendMessage = "subjectID=" + params[2].trim();
             }
 
             bufferedWriter.write(
