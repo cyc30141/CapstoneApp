@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ public class TeacherWeekPage extends AppCompatActivity {
 
         url = "http://192.168.43.26:8080/inhatc/getTeacherCourseWeek.do";
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         subjectID= intent.getStringExtra("data");
         type = "getTeacherCourseWeek";
 
@@ -52,15 +53,25 @@ public class TeacherWeekPage extends AppCompatActivity {
                         int size = jsonObject.getInt("size");
                         Log.d("size" , String.valueOf(size));
 
-                        for (int i = 0; i <= size; i++){
+                        for (int i = 0; i < size; i++){
                             CourseWeekDTO courseWeekDTO = new CourseWeekDTO();
-                            courseWeekDTO.setWeek(String.valueOf(i));
+                            courseWeekDTO.setWeek(i);
                             courseWeekDTO.setDate(jsonObject.getString(String.valueOf(i)));
 
                             list.add(courseWeekDTO);
                         }
-                        Log.d("list",list.get(16).getDate());
+                        Log.d("list",list.get(13).getDate());
                         listView.setAdapter(new ListViewAdapter(list));
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Intent intent1 = new Intent(getApplicationContext(),CoursePage.class);
+                                intent1.putExtra("week",list.get(i).getWeek());
+                                intent1.putExtra("subjectID", subjectID);
+                                startActivity(intent1);
+                            }
+                        });
 
                     }catch (Exception e){
                         e.printStackTrace();
@@ -106,7 +117,7 @@ public class TeacherWeekPage extends AppCompatActivity {
 
             TextView week = (TextView) convertView.findViewById(R.id.TeacherWeek) ;
             TextView date = (TextView) convertView.findViewById(R.id.TeacherWeekDate);
-            week.setText(listViewItemList.get(position).getWeek() + " 주차");
+            week.setText((listViewItemList.get(position).getWeek()+1) + " 주차");
             date.setText(listViewItemList.get(position).getDate());
 
             return convertView;

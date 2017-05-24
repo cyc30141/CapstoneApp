@@ -6,14 +6,14 @@ package com.inhatc.capstone.cse.gyoo.capstone.dto;
 
 public class CourseWeekDTO {
 
-    String week;
+    int week;
     String date;
 
-    public String getWeek() {
+    public int getWeek() {
         return week;
     }
 
-    public void setWeek(String week) {
+    public void setWeek(int week) {
         this.week = week;
     }
 
