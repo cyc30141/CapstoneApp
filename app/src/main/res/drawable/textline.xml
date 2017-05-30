@@ -8,8 +8,8 @@
             <corners
                 android:topLeftRadius="5dp"
                 android:topRightRadius="5dp"/>
-            <stroke android:width="2dp" android:color="#BDBDBD" />
-            <solid android:color="#ffff" />
+            <stroke android:width="2dp" android:color="#500033CC" />
+            <solid android:color="#50ffffff" />
         </shape>
     </item>
 </layer-list>

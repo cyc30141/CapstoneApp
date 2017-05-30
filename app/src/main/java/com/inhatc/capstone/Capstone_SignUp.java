@@ -65,7 +65,7 @@ public class Capstone_SignUp extends AppCompatActivity {
                 RadioButton radioButton = (RadioButton) findViewById(radioButtonId);
 
                 if (id.getText().length() > 0 || pw.getText().length() > 0 || name.getText().length() > 0 || phoneNumber.getText().length() > 0) {
-                    String url = "http://192.168.43.26:8080/inhatc/putStudent.do";
+                    String url = "http://172.30.1.26/inhatc/putStudent.do";
                     //String url = "http://172.30.1.15/inhatc/putStudent.do";
                     TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
                     String type = "signUp";

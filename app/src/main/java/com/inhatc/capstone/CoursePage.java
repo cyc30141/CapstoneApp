@@ -43,7 +43,7 @@ public class CoursePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_page);
 
-        url = "http://192.168.43.26:8080/inhatc/getCourseInfo.do";
+        url = "http://172.30.1.26/inhatc/getCourseInfo.do";
 
         Intent intent = getIntent();
         week = intent.getIntExtra("week",0);

@@ -229,6 +229,8 @@ public class MypageActivity extends AppCompatActivity {
                 state = "출석";
             }else if(json3.getString("state").equals("결석")){
                 state = "결석";
+            }else if(json3.getString("state").trim().equals("2")) {
+                state = "지각";
             }
 
             if (sdf.parse(json2.getString("st")).after(sdf.parse(getTime)) == true) {

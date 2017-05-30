@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.inhatc.capstone.MypageActivity">
+    android:background="@drawable/background"
+    tools:context="com.inhatc.capstone.MypageActivity"
+    >
 
     <LinearLayout
         android:orientation="vertical"
@@ -28,6 +30,7 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:background="@drawable/textline"
                 android:gravity="center"
                 android:textSize="15dp" />
 
@@ -48,19 +51,20 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:layout_weight="2"
+            android:layout_weight="2.5"
             android:background="@drawable/back"
             android:layout_margin="2dp"
             android:orientation="vertical">
 
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textStyle="bold"
+                android:background="@drawable/textline"
+                android:gravity="center"
                 android:text="오늘 수강 과목"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
 
             <!--<TextView
@@ -125,7 +129,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:choiceMode="singleChoice" />
+                android:choiceMode="singleChoice"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"

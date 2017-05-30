@@ -63,11 +63,11 @@ public class ListViewAdapter extends BaseAdapter {
                     TextView nameTextView = (TextView) convertView.findViewById(R.id.name) ;
 
                     if(position%2 == 0){
-                        convertView.setBackgroundColor(Color.argb(33,214,255,255));
+                        convertView.setBackgroundColor(Color.argb(50,162,246,255));
                         Log.i("데이터ssss", "임." + position%2);
                     }
                     else{
-                        convertView.setBackgroundColor(Color.argb(33,191,255,184));
+                        convertView.setBackgroundColor(Color.argb(50,30,174,255));
                     }
                     iconImageView.setImageDrawable(listViewItem.getIcon());
                     Log.i("데이터dddd"+listViewItem.getName(), "임." + position + " " + getCount());

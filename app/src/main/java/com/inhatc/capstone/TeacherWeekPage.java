@@ -34,7 +34,7 @@ public class TeacherWeekPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_week_page);
 
-        url = "http://192.168.43.26:8080/inhatc/getTeacherCourseWeek.do";
+        url = "http://172.30.1.26/inhatc/getTeacherCourseWeek.do";
 
         final Intent intent = getIntent();
         subjectID= intent.getStringExtra("data");
