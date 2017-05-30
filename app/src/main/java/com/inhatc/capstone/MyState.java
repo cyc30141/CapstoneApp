@@ -1,12 +1,12 @@
 package com.inhatc.capstone;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -75,7 +75,7 @@ public class MyState extends AppCompatActivity {
                 //items.add(temp);
                 if(sdf.parse(Mydate).after(sdf.parse(getTime))){
                     //items.add(Mydate + "                                                    대기");
-                    adapter.addItem(ContextCompat.getDrawable(this, R.drawable.uncheck1),
+                    adapter.addItem(ContextCompat.getDrawable(this, R.drawable.waitimg),
                             Mydate+"") ;
                 }else{
                     json2 = jArr2.getJSONObject(i);
@@ -83,15 +83,19 @@ public class MyState extends AppCompatActivity {
 
                     if(temp.equals("0")) {
                         //items.add(Mydate + "                                                    결석");
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.uncheck1),
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.uncheckimg),
                                 Mydate+"") ;
                     }else if(temp.equals("1")){
                         //items.add(Mydate + "                                                    출석");
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.check1),
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.checkimg),
+                                Mydate+"") ;
+                    }else if(temp.equals("2")){
+                        //items.add(Mydate + "                                                    대기");
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.waitimg2),
                                 Mydate+"") ;
                     }else{
                         //items.add(Mydate + "                                                    잘못된 값");
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.uncheck1),
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.uncheckimg),
                                 Mydate+"") ;
                     }
                 }

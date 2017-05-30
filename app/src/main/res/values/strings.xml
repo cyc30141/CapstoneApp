@@ -21,4 +21,6 @@
 
     <string name="title_activity_teacher_my_page">TeacherMyPage</string>
     <string name="title_activity_teacher_mypage_text">내 강의 과목</string>
+    <string name="demo_play1">데모 실행1</string>
+    <string name="demo_play2">데모 실행2</string>
 </resources>
