@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="course">
+        <item>대기</item>
+        <item >결석</item>
+        <item >출석</item>
+        <item >지각</item>
+    </string-array>
+</resources>
