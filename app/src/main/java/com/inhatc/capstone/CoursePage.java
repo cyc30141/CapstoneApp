@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,8 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -46,13 +49,17 @@ public class CoursePage extends AppCompatActivity {
     String type=null;
     List<CoursePageDTO> list;
     GridView gridView;
+    Bitmap bitmap;
+    ImageTask imageTask;
+
     //onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_page);
 
-        url = "http://172.30.1.26/inhatc/getCourseInfo.do";
+        //url = "http://192.168.43.214/inhatc/getCourseInfo.do";
+        url = "http://192.168.43.26:8080/inhatc/getCourseInfo.do";
 
         Intent intent = getIntent();
         week = intent.getIntExtra("week",0);
@@ -168,22 +175,32 @@ public class CoursePage extends AppCompatActivity {
 
             switch (listViewItemList.get(position).getWeek()){
                 case 0: viewHolder.layout.setBackgroundColor(Color.rgb(255, 000, 127));
+                    viewHolder.spinner.setSelection(listViewItemList.get(position).getWeek()+1);
                     Log.d("first background Test","0번쨰");
                     break;
                 case 1:  viewHolder.layout.setBackgroundColor(Color.rgb(134, 229, 127));
+                    viewHolder.spinner.setSelection(listViewItemList.get(position).getWeek()+1);
                     Log.d("first background Test","1번쨰");
                     break;
                 case 2: viewHolder.layout.setBackgroundColor(Color.rgb(255, 228, 0));
+                    viewHolder.spinner.setSelection(listViewItemList.get(position).getWeek()+1);
                     Log.d("first background Test","2번쨰");
                     break;
             }
 
-                new Thread(){//이미지 적용시키기 위한 쓰레드
+               /* new Thread(){//이미지 적용시키기 위한 쓰레드
                     public void run(){
-                        photoStart(position,viewHolder.imageView,listViewItemList);
+                       photoStart(position,viewHolder.imageView,listViewItemList);
                     }
-                }.start();
-
+                }.start();*/
+            try {
+                imageTask = new ImageTask();
+                listViewItemList.get(position).setImageBitmap( imageTask.execute(listViewItemList.get(position).getStudentPhoto()).get() );
+                Log.d("imageBitmap",listViewItemList.get(position).getImageBitmap().toString());
+                viewHolder.imageView.setImageBitmap( listViewItemList.get(position).getImageBitmap() );
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             Log.d("spinner Test", "spinner run");
             new Thread(new Runnable() {
                 @Override
@@ -219,7 +236,7 @@ public class CoursePage extends AppCompatActivity {
                         }
                     });
                 }
-            }).start();
+            }).run();
 
             Log.d("spinner Test", "spinner exit");
 
@@ -248,20 +265,45 @@ public class CoursePage extends AppCompatActivity {
 
     }
 
-    public void photoStart(int position,ImageView imageView,List<CoursePageDTO> list){
+ /*   public void photoStart(int position,ImageView imageView,List<CoursePageDTO> list){
         try {
 
             URL url = new URL(list.get(position).getStudentPhoto());
             URLConnection conn = url.openConnection();
             conn.connect();
             BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
-            Bitmap bm = BitmapFactory.decodeStream(bis);
-            bis.close();
-            imageView.setImageBitmap(bm);
-
+            Log.d("bis check",bis.toString());
+            if(bis != null) {
+                Bitmap bm = BitmapFactory.decodeStream(bis);
+                Log.d("bm check",bm.toString());
+                bis.close();
+                imageView.setImageBitmap(bm);
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
-    }//Thread로 돌려야 하기 떄문에 따로 메소드로 뺌(이미지 Url로 가져와서 이미지뷰에 적용시키기)
+    }//Thread로 돌려야 하기 떄문에 따로 메소드로 뺌(이미지 Url로 가져와서 이미지뷰에 적용시키기)*/
+
+    class ImageTask extends AsyncTask<String,Void,Bitmap>{
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+
+            try{
+
+                URL imageUrl = new URL(strings[0]);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)imageUrl.openConnection();
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                bitmap = BitmapFactory.decodeStream(inputStream);
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+            return bitmap;
+        }
+    }
 
 }

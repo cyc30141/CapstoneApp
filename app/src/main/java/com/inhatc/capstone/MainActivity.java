@@ -185,7 +185,8 @@ public class MainActivity extends AppCompatActivity {
                 if(passWord.getText().length() > 0 && identification.getText().length() > 0){
                     id = identification.getText().toString().trim();
                     pw = passWord.getText().toString().trim();
-                    url = "http://172.30.1.37/inhatc/getStudent.do";
+                    //url = "http://192.168.43.214/inhatc/getStudent.do";
+                    url = "http://192.168.43.26:8080/inhatc/getStudent.do";
                     //url = "http://albin7046.cafe24.com/getStudent.do";
                     type = "signIn";
                     Log.d("LoginInfo", "identification : " + id + " pw : " + pw);
@@ -302,32 +303,39 @@ public class MainActivity extends AppCompatActivity {
                 String urls="";
 
                 if(strings[0].equals("join")) {
-                    urls = "http://172.30.1.37/inhatc/putStudent.do";
+                    //urls = "http://192.168.43.214/inhatc/putStudent.do";
+                    urls = "http://192.168.43.26:8080/inhatc/putStudent.do";
                     //urls = "http://albin7046.cafe24.com/putStudent.do";
                     sendMsg = "id=" + strings[1].trim() + "&pw=" + strings[2].trim() + "&name=" + strings[3].trim() + "&grade=" + strings[5].trim() + "&phoneNumber=" + strings[5].trim() + "&device=" + strings[6].trim();
                 }
                 else if(strings[0].equals("login")){
-                    urls = "http://172.30.1.37/inhatc/login.do";
+                    //urls = "http://192.168.43.214/inhatc/login.do";
+                    urls = "http://192.168.43.26:8080/inhatc/login.do";
                     //urls = "http://albin7046.cafe24.com/login.do";
                     sendMsg = "phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&major=" + strings[3].trim();
                 }else if(strings[0].equals("attendance")){
-                    urls = "http://172.30.1.37/inhatc/attendance.do";
+                    //urls = "http://192.168.43.214/inhatc/attendance.do";
+                    urls = "http://192.168.43.26:8080/inhatc/attendance.do";
                     //urls = "http://albin7046.cafe24.com/attendance.do";
                     sendMsg = "phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&major=" + strings[3].trim();
                 }else if(strings[0].equals("mypage")){
-                    urls = "http://172.30.1.37/inhatc/getMypage.do";
+                   // urls = "http://192.168.43.214/inhatc/getMypage.do";
+                    urls = "http://192.168.43.26:8080/inhatc/getMypage.do";
                     //urls = "http://albin7046.cafe24.com/getMypage.do";
                     sendMsg = "&phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim();
                 }else if(strings[0].equals("mypage2")){
-                    urls = "http://172.30.1.37/inhatc/getAllState.do";
+                   // urls = "http://192.168.43.214/inhatc/getAllState.do";
+                    urls = "http://192.168.43.26:8080/inhatc/getAllState.do";
                     //urls = "http://albin7046.cafe24.com/getAllState.do";
                     sendMsg = "&phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim() + "&subject_name=" + strings[3].trim();
                 }else if(strings[0].equals("demo1")){
-                    urls = "http://172.30.1.37/inhatc/demo1.do";
+                   // urls = "http://192.168.43.214/inhatc/demo1.do";
+                    urls = "http://192.168.43.26:8080/inhatc/demo1.do";
                     //urls = "http://albin7046.cafe24.com/demo1.do";
                     sendMsg = "&phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim();
                 }else if(strings[0].equals("demo2")){
-                    urls = "http://172.30.1.37/inhatc/demo2.do";
+                    //urls = "http://192.168.43.214/inhatc/demo2.do";
+                    urls = "http://192.168.43.26:8080/inhatc/demo2.do";
                     //urls = "http://albin7046.cafe24.com/demo2.do";
                     sendMsg = "&phone=" + strings[1].trim() + "&deviceid=" + strings[2].trim();
                 }else{

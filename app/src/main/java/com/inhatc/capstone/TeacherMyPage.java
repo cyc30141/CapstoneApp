@@ -33,7 +33,8 @@ public class TeacherMyPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_my_page);
 
-        url = "http://172.30.1.26/inhatc/getTeacherInfo.do";
+        //url = "http://192.168.43.214/inhatc/getTeacherInfo.do";
+        url = "http://192.168.43.26:8080/inhatc/getTeacherInfo.do";
 
         Intent intent = getIntent();
         teacherId = intent.getStringExtra("data1");

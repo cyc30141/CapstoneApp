@@ -1,5 +1,7 @@
 package com.inhatc.capstone.cse.gyoo.capstone.dto;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Gyoo on 2017-05-23.
  */
@@ -10,6 +12,15 @@ public class CoursePageDTO {
     String studentPhoto;
     String studentID;
     String studentName;
+    Bitmap imageBitmap;
+
+    public Bitmap getImageBitmap() {
+        return imageBitmap;
+    }
+
+    public void setImageBitmap(Bitmap imageBitmap) {
+        this.imageBitmap = imageBitmap;
+    }
 
     public int getWeek() {
         return week;
