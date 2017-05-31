@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,26 +16,20 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.inhatc.capstone.cse.gyoo.capstone.dto.CourseListDTO;
 import com.inhatc.capstone.cse.gyoo.capstone.dto.CoursePageDTO;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +44,11 @@ public class CoursePage extends AppCompatActivity {
     GridView gridView;
     Bitmap bitmap;
     ImageTask imageTask;
+    Button updateScreenButton;
+    Button updateStudentButton;
+    StringBuffer studentStringBuffer;
+    StringBuffer weekStringBuffer;
+    GridViewAdapter gridViewAdapter;
 
     //onCreate
     @Override
@@ -65,6 +63,8 @@ public class CoursePage extends AppCompatActivity {
         week = intent.getIntExtra("week",0);
         subjectID = intent.getStringExtra("subjectID");
         type = "getCourseInfo";
+        updateScreenButton = (Button)findViewById(R.id.updateScreenButton);
+        updateStudentButton = (Button)findViewById(R.id.updateStudentButton);
 
         week += 1;//Week의 시작은 1부터 이고 배열은 0부터여서 싱크를 맞춰주기위한 +1
 
@@ -94,17 +94,8 @@ public class CoursePage extends AppCompatActivity {
                         Log.d("coursePageDTO : ", coursePageDTO.toString() );
                         list.add(coursePageDTO);
                     }
-
-                    new CustomTask(new CustomTask.AsyncResponse() {
-                        @Override
-                        public void processFinish(String output) {
-                            for (int i=0; i< list.size(); i++){
-
-                            }
-                        }
-                    }).execute();
-
-                    gridView.setAdapter(new GridViewAdapter(list)); //어답터는 ListView,GridView 마다 들어가는 객체가 달라서 각자 이너클래스로 작성
+                    gridViewAdapter = new GridViewAdapter(list);
+                    gridView.setAdapter(gridViewAdapter); //어답터는 ListView,GridView 마다 들어가는 객체가 달라서 각자 이너클래스로 작성
 
                 }catch(Exception e){
 
@@ -112,7 +103,48 @@ public class CoursePage extends AppCompatActivity {
             }
         }).execute(url,type,subjectID,String.valueOf(week));
 
-    }
+        updateScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
+        });
+
+        updateStudentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String buttonUrl = "http://192.168.43.26:8080/inhatc/updateStudentInfo.do";
+                String buttonType = "updateStudent";
+
+                studentStringBuffer = new StringBuffer();
+                weekStringBuffer = new StringBuffer();
+
+                if (list.size() != 0) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if(list.size()-1 == i) {
+                            studentStringBuffer.append(list.get(i).getStudentID());
+                            weekStringBuffer.append(list.get(i).getWeek());
+                        }else{
+                            studentStringBuffer.append(list.get(i).getStudentID()+",");
+                            weekStringBuffer.append(list.get(i).getWeek()+",");
+                        } // for문안 if문 끝
+                    }// for문 끝
+                    Log.d("StringBufferTest", studentStringBuffer + " " + weekStringBuffer);
+                } // if문 끝
+
+                new CustomTask(new CustomTask.AsyncResponse() {
+                    @Override
+                    public void processFinish(String output) {
+                        Log.d("tranferTest","전송 성공");
+                    }
+                }).execute(buttonUrl, buttonType, studentStringBuffer.toString() ,weekStringBuffer.toString(), String.valueOf(week));
+
+            }
+        });
+
+    }// onCreate 끝
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_main, menu);
         Log.d("onCreateOptionMenu",menu.toString());
@@ -188,11 +220,6 @@ public class CoursePage extends AppCompatActivity {
                     break;
             }
 
-               /* new Thread(){//이미지 적용시키기 위한 쓰레드
-                    public void run(){
-                       photoStart(position,viewHolder.imageView,listViewItemList);
-                    }
-                }.start();*/
             try {
                 imageTask = new ImageTask();
                 listViewItemList.get(position).setImageBitmap( imageTask.execute(listViewItemList.get(position).getStudentPhoto()).get() );
@@ -264,25 +291,6 @@ public class CoursePage extends AppCompatActivity {
         }
 
     }
-
- /*   public void photoStart(int position,ImageView imageView,List<CoursePageDTO> list){
-        try {
-
-            URL url = new URL(list.get(position).getStudentPhoto());
-            URLConnection conn = url.openConnection();
-            conn.connect();
-            BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
-            Log.d("bis check",bis.toString());
-            if(bis != null) {
-                Bitmap bm = BitmapFactory.decodeStream(bis);
-                Log.d("bm check",bm.toString());
-                bis.close();
-                imageView.setImageBitmap(bm);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }//Thread로 돌려야 하기 떄문에 따로 메소드로 뺌(이미지 Url로 가져와서 이미지뷰에 적용시키기)*/
 
     class ImageTask extends AsyncTask<String,Void,Bitmap>{
         @Override
